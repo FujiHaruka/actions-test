@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Parse Comment
     steps:
+      - name: Dump GitHub event
+        env:
+          GITHUB_EVENT: ${{ toJSON(github.event) }}
+        run: echo "$GITHUB_EVENT"
       - name: Issue Refs Parser Action
         uses: FujiHaruka/issue-refs-parser-action@v1.0
         id: action
