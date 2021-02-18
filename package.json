@@ -1,0 +1,27 @@
+{
+  "name": "actions-test",
+  "description": "",
+  "version": "1.0.0",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/FujiHaruka/actions-test/issues"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@vercel/ncc": "^0.27.0"
+  },
+  "homepage": "https://github.com/FujiHaruka/actions-test#readme",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FujiHaruka/actions-test.git"
+  },
+  "scripts": {
+    "build": "ncc build scripts/label.js -o dist/label --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

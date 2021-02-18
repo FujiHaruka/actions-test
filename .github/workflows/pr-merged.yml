@@ -1,0 +1,31 @@
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+
+jobs:
+  label-to-issues:
+    runs-on: ubuntu-latest
+    name: Label To Refferenced Issues
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: "Set up Node.js"
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Dump GitHub event
+        env:
+          GITHUB_EVENT: ${{ toJSON(github.event) }}
+        run: echo "$GITHUB_EVENT"
+      - name: Issue Refs Parser Action
+        uses: FujiHaruka/issue-refs-parser-action@v1.1
+        id: action
+        with:
+          body: ${{ github.event.pull_request.body }}
+          self_slug: FujiHaruka/actions-test
+      - name: Get The Outputs
+        run: node ./dist/label/index.js
+        with:
+          issues: ${{ steps.action.outputs.refs }}
+          token: ${{ secrets.GITHUB_TOKEN }}
