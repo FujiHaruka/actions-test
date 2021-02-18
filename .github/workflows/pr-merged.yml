@@ -10,6 +10,8 @@ jobs:
     name: Label To Refferenced Issues
     if: github.event.pull_request.merged == true
     steps:
+      - name: "Checkout project"
+        uses: actions/checkout@v2
       - name: "Set up Node.js"
         uses: actions/setup-node@v2
         with:
