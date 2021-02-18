@@ -18,14 +18,14 @@ jobs:
         env:
           GITHUB_EVENT: ${{ toJSON(github.event) }}
         run: echo "$GITHUB_EVENT"
-      - name: Issue Refs Parser Action
+      - name: Parse Pull Request Body
         uses: FujiHaruka/issue-refs-parser-action@v1.1
         id: action
         with:
           body: ${{ github.event.pull_request.body }}
           self_slug: FujiHaruka/actions-test
-      - name: Get The Outputs
+      - name: Label
         run: node ./dist/label/index.js
-        with:
-          issues: ${{ steps.action.outputs.refs }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          REF_ISSUES: ${{ steps.action.outputs.refs }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
